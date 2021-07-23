@@ -1,3 +1,4 @@
+using HotelListingAppVersion2.Configurations;
 using HotelListingAppVersion2.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,10 +26,15 @@ namespace HotelListingAppVersion2
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
             services.AddCors(o =>
                 {
-                    o.AddPolicy("CorsPolicy-AllowAll", builder => builder.AllowAnyOrigin()
+                    o.AddPolicy("CorsPolicy-AllowAll",
+                    builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
                 });
+
+            services.AddAutoMapper(typeof(MapperInitializer));
+
+
             // Fr Adding Swagger
             services.AddSwaggerGen(c =>
             {
