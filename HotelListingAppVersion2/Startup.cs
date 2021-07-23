@@ -1,16 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelListingAppVersion2
 {
@@ -28,6 +21,13 @@ namespace HotelListingAppVersion2
         {
 
             services.AddControllers();
+            services.AddCors(o =>
+                {
+                    o.AddPolicy("CorsPolicy-AllowAll", builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+                });
+            // Fr Adding Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelListingAppVersion2", Version = "v1" });
@@ -40,11 +40,15 @@ namespace HotelListingAppVersion2
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelListingAppVersion2 v1"));
+              
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelListingAppVersion2 v1"));
+
             app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy-AllowAll");
 
             app.UseRouting();
 
