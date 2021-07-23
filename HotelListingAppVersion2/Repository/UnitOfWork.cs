@@ -1,8 +1,6 @@
 ﻿using HotelListingAppVersion2.Data;
 using HotelListingAppVersion2.IRespository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelListingAppVersion2.Repository

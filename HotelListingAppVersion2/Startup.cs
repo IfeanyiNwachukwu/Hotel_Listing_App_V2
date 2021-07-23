@@ -25,7 +25,8 @@ namespace HotelListingAppVersion2
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
             services.AddCors(o =>
                 {
-                    o.AddPolicy("CorsPolicy-AllowAll", builder => builder.AllowAnyOrigin()
+                    o.AddPolicy("CorsPolicy-AllowAll",
+                    builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
                 });
