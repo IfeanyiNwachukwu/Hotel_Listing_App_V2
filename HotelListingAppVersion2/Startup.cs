@@ -1,3 +1,4 @@
+using HotelListingAppVersion2.Configurations;
 using HotelListingAppVersion2.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,10 @@ namespace HotelListingAppVersion2
                     .AllowAnyMethod()
                     .AllowAnyHeader());
                 });
+
+            services.AddAutoMapper(typeof(MapperInitializer));
+
+
             // Fr Adding Swagger
             services.AddSwaggerGen(c =>
             {
