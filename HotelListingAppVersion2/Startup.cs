@@ -1,5 +1,7 @@
+using HotelListingAppVersion2.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +22,7 @@ namespace HotelListingAppVersion2
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
             services.AddCors(o =>
                 {
                     o.AddPolicy("CorsPolicy-AllowAll", builder => builder.AllowAnyOrigin()
@@ -32,6 +34,8 @@ namespace HotelListingAppVersion2
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelListingAppVersion2", Version = "v1" });
             });
+            
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
