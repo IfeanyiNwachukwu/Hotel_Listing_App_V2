@@ -41,5 +41,21 @@ namespace HotelListingAppVersion2.Controllers
                 return StatusCode(500, "Internal Server Error. Please Try Again Later");
             }
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetCountry(int id)
+        {
+            try
+            {
+                var country = await _unitOfWork.Countries.Get(q => q.Id == id, new List<string>() {"Hotels"});
+                var results = _mapper.Map<CountryDTO>(country);
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Something Went wrong {nameof(GetCountries)}");
+                return StatusCode(500, "Internal Server Error. Please Try Again Later");
+            }
+        }
     }
 }
