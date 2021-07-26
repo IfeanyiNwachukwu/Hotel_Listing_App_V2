@@ -1,5 +1,6 @@
 using HotelListingAppVersion2.Configurations;
 using HotelListingAppVersion2.Data;
+using HotelListingAppVersion2.Extensions;
 using HotelListingAppVersion2.IRespository;
 using HotelListingAppVersion2.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,8 @@ namespace HotelListingAppVersion2
                     .AllowAnyMethod()
                     .AllowAnyHeader());
                 });
-
+            services.AddAuthentication();
+            services.ConfigureIdentity();
             services.AddAutoMapper(typeof(MapperInitializer));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
